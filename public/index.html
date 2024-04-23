@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bombify</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <ul class="category-list">
+            <li><a href="shoes.html">Shoes</a></li>
+            <li><a href="clothing.html">Clothing</a></li>
+            <li><a href="accessories.html">Accessories</a></li>
+        </ul>
+    </div>    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>Store</h1>
+            </div>
+            <div class="search-container">
+                <input type="search" id="productSearch" placeholder="Search products...">
+            </div>
+        </header>        
+        <main>
+            <div class="product" onclick="productClicked('Product 2')">
+                <div class="product-images">
+                    <img src="./img/airmax.jpeg" alt="Product 2">
+                </div>
+                <h2 class="text">Airmax</h2>
+                <p class="text">$10.99</p>
+            </div>
+            <div class="product" onclick="productClicked('Product 3')">
+                <div class="product-images">
+                    <img src="./img/airmax.jpeg" alt="Product 3">
+                </div>
+                <h2 class="text">Airmax</h2>
+                <p class="text">$10.99</p>
+            </div>
+            <div class="product" onclick="productClicked('Product 4')">
+                <div class="product-images">
+                    <img src="./img/airmax.jpeg" alt="Product 4">
+                </div>
+                <h2>Product 4</h2>
+                <p>$19.99</p>
+            </div>
+            <div class="product" onclick="productClicked('Product 4')">
+                <div class="product-images">
+                    <img src="./img/airmax.jpeg" alt="Product 4">
+                </div>
+                <h2>Product 4</h2>
+                <p>$19.99</p>
+            </div>
+            <div class="product" onclick="productClicked('Product 4')">
+                <div class="product-images">
+                    <img src="./img/airmax.jpeg" alt="Product 4">
+                </div>
+                <h2>Product 4</h2>
+                <p>$19.99</p>
+            </div>
+            <div class="product" onclick="productClicked('Product 4')">
+                <div class="product-images">
+                    <img src="./img/airmax.jpeg" alt="Product 4">
+                </div>
+                <h2>Product 4</h2>
+                <p>$19.99</p>
+            </div>
+            <div class="product" onclick="productClicked('Product 4')">
+                <div class="product-images">
+                    <img src="./img/airmax.jpeg" alt="Product 4">
+                </div>
+                <h2>Product 4</h2>
+                <p>$19.99</p>
+            </div>
+            <div class="product" onclick="productClicked('Product 4')">
+                <div class="product-images">
+                    <img src="./img/airmax.jpeg" alt="Product 4">
+                </div>
+                <h2>Product 4</h2>
+                <p>$19.99</p>
+            </div>
+        </main>
+        
+        
+        <div class="chatbot-container">
+            <div id="chat-messages">
+                Chat messages will be displayed here
+            </div>
+            <div class="input-container">
+                <input id="prompt" type="text" placeholder="Enter message..." />
+                <button id="send">Send</button>
+            </div>
+        </div>
+        
+        <div class="output-container">
+            <!-- Outputs will be displayed here -->
+        </div>
+
+        <footer class="footer">
+            <p>© 2024 My E-Commerce Store. All rights reserved.</p>
+        </footer>
+    </div>
+
+    
+    
+
+    <script>
+        const promptElement = document.getElementById("prompt");
+        const sendElement = document.getElementById("send");
+        const chatMessages = document.getElementById("chat-messages");
+    
+        sendElement.addEventListener("click", () => {
+            const message = promptElement.value;
+            displayMessage(message, 'user');
+            fetch(`/api/gpt?prompt=${encodeURIComponent(message)}`)
+            .then(response => response.text())
+            .then(text => {
+                displayMessage(text, 'bot');
+            })
+            .catch(error => {
+        console.error('Error:', error);
+        displayMessage('Sorry, there was a problem processing your request.', 'bot');
+    });
+    promptElement.value = ''; // Clear input after sending
+});
+    
+        function displayMessage(message, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = message;
+            messageDiv.className = sender === 'user' ? 'user-message' : 'bot-message';
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
+        }
+    </script>
+    
+    <!-- <script>
+        const promptElement = document.getElementById("prompt");
+        const sendElement = document.getElementById("send");
+        sendElement.addEventListener("click", () => {
+            fetch(`/api/gpt?prompt=${promptElement.value}`)
+            .then((response) => response.text())
+            .then((responseText) => {
+                const responseElement = document.createElement("p");
+                responseElement.innerText = responseText;
+                document.body.appendChild(responseElement);
+            });
+        });
+    </script> -->
+    <script src="script.js"></script>
+    <script src="onclick.js"></script>
+</body>
+</html>
